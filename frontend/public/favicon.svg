@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FolioForge">
+  <rect width="64" height="64" rx="18" fill="#101217"/>
+  <path d="M17 18h29v8H26v7h17v8H26v9h-9V18Z" fill="#f7d37a"/>
+  <circle cx="48" cy="48" r="6" fill="#d98e72"/>
+</svg>
