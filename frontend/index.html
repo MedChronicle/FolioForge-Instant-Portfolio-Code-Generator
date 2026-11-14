@@ -1,18 +1,108 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#101217" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Theme: set before first paint to avoid a flash of the wrong colors -->
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#101217" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("folioforge:theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+        } catch (_) {}
+      })();
+    </script>
+
+    <!-- SEO -->
+    <title>FolioForge — Creative portfolio studio</title>
     <meta
       name="description"
       content="FolioForge is a creative portfolio studio for building and exporting memorable personal websites."
     />
-    <link rel="icon" href="/favicon.svg" />
-    <title>FolioForge — Creative portfolio studio</title>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://your-domain.com/" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FolioForge" />
+    <meta property="og:title" content="FolioForge — Creative portfolio studio" />
+    <meta
+      property="og:description"
+      content="Build and export memorable personal portfolio websites."
+    />
+    <meta property="og:url" content="https://your-domain.com/" />
+    <meta property="og:image" content="https://your-domain.com/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FolioForge — Creative portfolio studio" />
+    <meta
+      name="twitter:description"
+      content="Build and export memorable personal portfolio websites."
+    />
+    <meta name="twitter:image" content="https://your-domain.com/og-image.png" />
+
+    <!-- Icons / PWA -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Performance: only keep these if you load Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FolioForge",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "description": "A creative portfolio studio for building and exporting personal websites."
+      }
+    </script>
+
+    <!-- Instant loading shell: visible until React mounts -->
+    <style>
+      :root[data-theme="dark"] { --bg: #101217; --fg: #e8eaf0; --accent: #7c9cff; }
+      :root[data-theme="light"] { --bg: #f6f7fb; --fg: #14161c; --accent: #3b5bdb; }
+      html, body { margin: 0; background: var(--bg); color: var(--fg); }
+      body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .skip-link {
+        position: absolute; left: 0.5rem; top: -3rem; padding: 0.5rem 0.75rem;
+        background: var(--accent); color: #fff; border-radius: 0.375rem; z-index: 100;
+      }
+      .skip-link:focus { top: 0.5rem; }
+      #boot {
+        position: fixed; inset: 0; display: grid; place-items: center; gap: 1rem;
+        align-content: center; background: var(--bg); transition: opacity 0.3s;
+      }
+      .spinner {
+        width: 2.25rem; height: 2.25rem; border-radius: 50%;
+        border: 3px solid color-mix(in srgb, var(--fg) 20%, transparent);
+        border-top-color: var(--accent); animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+    </style>
   </head>
+
   <body>
+    <a class="skip-link" href="#root">Skip to content</a>
+
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+
+    <div id="boot" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <span>Loading FolioForge…</span>
+    </div>
+
+    <noscript>FolioForge needs JavaScript enabled to run.</noscript>
+
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
