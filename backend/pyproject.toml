@@ -1,3 +1,68 @@
 [tool.pytest.ini_options]
+minversion = "8.0"
 testpaths = ["tests"]
-addopts = "-q"
+pythonpath = ["src"]
+
+# Strict by default: typos in markers/config fail loudly instead of passing silently
+addopts = [
+    "-ra",                       # short summary for all non-passing outcomes
+    "-q",
+    "--strict-markers",
+    "--strict-config",
+    "--import-mode=importlib",   # avoids sys.path pollution and name clashes
+    "--durations=10",            # show the 10 slowest tests
+    "--durations-min=0.5",
+    "-p no:cacheprovider",       # remove this line if you want .pytest_cache
+    "--cov=src",
+    "--cov-branch",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=xml",
+    "--cov-fail-under=80",
+    "-n=auto",                   # parallel runs (needs pytest-xdist)
+]
+
+# Fail fast on flaky/hanging tests (needs pytest-timeout)
+timeout = 30
+timeout_method = "thread"
+
+# Async support (needs pytest-asyncio)
+asyncio_mode = "auto"
+
+# Registered markers, used with: pytest -m "not slow"
+markers = [
+    "slow: long-running tests (deselect with -m 'not slow')",
+    "integration: tests that hit external systems or databases",
+    "unit: fast, isolated tests",
+    "smoke: minimal sanity checks run on every deploy",
+]
+
+# Treat warnings as errors, with targeted exceptions
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning:third_party_lib.*",
+    "ignore:.*pkg_resources.*:UserWarning",
+]
+
+# Cleaner failure output and logging
+log_cli = false
+log_level = "INFO"
+log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s"
+log_date_format = "%H:%M:%S"
+junit_family = "xunit2"
+xfail_strict = true              # an unexpected pass of an xfail test fails the run
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = ["*/tests/*", "*/__main__.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "\\.\\.\\.",
+]
