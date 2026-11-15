@@ -1,8 +1,24 @@
 fastapi>=0.115,<1.0
 uvicorn[standard]>=0.34,<1.0
+gunicorn>=23.0,<24.0                # production process manager with uvicorn workers
 pydantic>=2.10,<3.0
 pydantic-settings>=2.7,<3.0
 python-multipart>=0.0.20,<1.0
-motor>=3.7,<4.0
-pytest>=8.3,<9.0
+pymongo>=4.13,<5.0                  # native async API (AsyncMongoClient), replaces Motor
 httpx>=0.28,<1.0
+orjson>=3.10,<4.0                   # faster JSON serialization
+structlog>=25.1,<26.0               # structured logging
+
+
+
+-r base.txt
+pytest>=8.3,<9.0
+pytest-asyncio>=0.25,<2.0
+pytest-cov>=6.0,<7.0
+pytest-xdist>=3.6,<4.0
+pytest-timeout>=2.3,<3.0
+asgi-lifespan>=2.1,<3.0             # runs app startup/shutdown in tests with httpx
+mongomock-motor>=0.0.34             # remove if you move to a real test DB or testcontainers
+ruff>=0.9,<1.0                      # linter and formatter in one
+mypy>=1.14,<2.0
+pre-commit>=4.0,<5.0
