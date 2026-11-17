@@ -1,5 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FolioForge">
-  <rect width="64" height="64" rx="18" fill="#101217"/>
-  <path d="M17 18h29v8H26v7h17v8H26v9h-9V18Z" fill="#f7d37a"/>
-  <circle cx="48" cy="48" r="6" fill="#d98e72"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="ff-title ff-desc">
+  <title id="ff-title">FolioForge</title>
+  <desc id="ff-desc">A golden letter F with a glowing ember accent on a dark rounded tile.</desc>
+
+  <defs>
+    <linearGradient id="ff-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1c202b"/>
+      <stop offset="1" stop-color="#0b0d12"/>
+    </linearGradient>
+
+    <linearGradient id="ff-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe9ae"/>
+      <stop offset="0.55" stop-color="#f7d37a"/>
+      <stop offset="1" stop-color="#e0a93e"/>
+    </linearGradient>
+
+    <radialGradient id="ff-ember" cx="0.35" cy="0.35" r="0.85">
+      <stop offset="0" stop-color="#f6bfa6"/>
+      <stop offset="1" stop-color="#c96f4d"/>
+    </radialGradient>
+
+    <radialGradient id="ff-halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#d98e72" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#d98e72" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="ff-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <clipPath id="ff-tile">
+      <rect width="64" height="64" rx="18"/>
+    </clipPath>
+  </defs>
+
+  <!-- Tile -->
+  <g clip-path="url(#ff-tile)">
+    <rect width="64" height="64" fill="url(#ff-bg)"/>
+    <circle cx="48" cy="48" r="20" fill="url(#ff-halo)"/>
+    <path d="M0 0h64v22C44 18 20 14 0 26Z" fill="#fff" opacity="0.03"/>
+  </g>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="17.5" fill="none" stroke="#fff" stroke-opacity="0.1"/>
+
+  <!-- Letter F -->
+  <path d="M17 18h29v8H26v7h17v8H26v9h-9V18Z" fill="url(#ff-gold)" stroke="#fff3c9" stroke-opacity="0.35" stroke-width="0.5" stroke-linejoin="round"/>
+
+  <!-- Ember -->
+  <circle cx="48" cy="48" r="6" fill="url(#ff-ember)" filter="url(#ff-glow)"/>
+  <circle cx="46.2" cy="46.2" r="1.6" fill="#fff" opacity="0.55"/>
 </svg>
